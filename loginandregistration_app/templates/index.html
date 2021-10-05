@@ -12,17 +12,17 @@
     <div class="col-4 bg-dark bg-gradient text-white p-5">
         <h1 class="display-6 text-warning">Register</h1>
         
-        {% with messages = get_flashed_messages(with_categories=false) %}     <!-- declare a variable called messages -->
-                    {% if messages %}
-                    <div style="--bs-bg-opacity: .5;" class="bg-danger text-white rounded p-3">
-                        <ul>                            <!-- check if there are any messages -->
-                        {% for message in messages %}            <!-- loop through the messages -->
-                            <li>{{message}}</li>                   <!-- display each message in a paragraph tag -->
-                        {% endfor %}
-                        </ul>
-                    </div>
-                    {% endif %}
-                {% endwith %}
+        {% with messages = get_flashed_messages(category_filter=['register']) %}     
+            {% if messages %}
+            <div style="--bs-bg-opacity: .5;" class="bg-danger text-white rounded p-3">
+                <ul>                            
+                {% for message in messages %}            
+                    <li>{{message}}</li>                   
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        {% endwith %}
 
         <form class="d-flex flex-column" action="/register" method="POST" >
             <label for="first_name">First name:</label>
@@ -60,17 +60,17 @@
     
     <div class="col-4 bg-secondary bg-gradient text-white  p-5">
         <h1 class="display-6 text-primary">Login</h1>
-        {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
-                    {% if messages %}
-                    <div style="--bs-bg-opacity: .5;" class="bg-danger text-white rounded p-3">
-                        <ul>                            <!-- check if there are any messages -->
-                        {% for message in messages %}            <!-- loop through the messages -->
-                            <li>{{message}}</li>                   <!-- display each message in a paragraph tag -->
-                        {% endfor %}
-                        </ul>
-                    </div>
-                    {% endif %}
-                {% endwith %}
+        {% with messages = get_flashed_messages(category_filter=['login']) %}     
+            {% if messages %}
+            <div style="--bs-bg-opacity: .5;" class="bg-danger text-white rounded p-3">
+                <ul>                           
+                {% for message in messages %}            
+                    <li>{{message}}</li>                   
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        {% endwith %}
         <form class="d-flex flex-column" action="/login" method="POST" >
         
             <label for="email">Email:</label>

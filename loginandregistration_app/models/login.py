@@ -4,7 +4,7 @@ from flask import flash, session
 
 import re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-USER_REGEX = re.compile()
+USER_REGEX = re.compile(r'^[a-zA-Z]+$')
 
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
@@ -28,11 +28,11 @@ class Login:
         if not EMAIL_REGEX.match(data['email']):
             flash("Please provide a valid email address.","register")
             is_valid=False
-        if len(data['first_name']) <2:
-            flash("First name should include more than 2 characters.","register")
+        if not USER_REGEX.match(data['first_name']) or len(data['first_name']) <2:
+            flash("First name should not include numeric or special characters and needs to be more than 2 characters.","register")
             is_valid=False
-        if len(data['last_name']) <2:
-            flash("Last name should include more than 2 characters.","register")
+        if not USER_REGEX.match(data['last_name']) or len(data['last_name']) <2:
+            flash("Last name should not include numeric or special characters and needs to be more than 2 characters.","register")
             is_valid=False
         if data['age'] == "None":
             flash("Please select a valid age range.","register")
