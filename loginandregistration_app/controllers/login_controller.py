@@ -41,8 +41,6 @@ def login():
         return redirect ('/')
     return redirect ('/user')
 
-
-
 @app.route('/logout', methods=['GET'])
 def restart():
     session.clear()

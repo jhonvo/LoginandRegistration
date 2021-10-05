@@ -4,6 +4,7 @@ from flask import flash, session
 
 import re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+USER_REGEX = re.compile()
 
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
@@ -25,22 +26,22 @@ class Login:
             flash("Email already taken.")
             is_valid=False
         if not EMAIL_REGEX.match(data['email']):
-            flash("Please provide a valid email address.")
+            flash("Please provide a valid email address.","register")
             is_valid=False
         if len(data['first_name']) <2:
-            flash("First name should include more than 2 characters.")
+            flash("First name should include more than 2 characters.","register")
             is_valid=False
         if len(data['last_name']) <2:
-            flash("Last name should include more than 2 characters.")
+            flash("Last name should include more than 2 characters.","register")
             is_valid=False
         if data['age'] == "None":
-            flash("Please select a valid age range.")
+            flash("Please select a valid age range.","register")
             is_valid=False
         if len(data['password']) < 8:
-            flash("Password should include more than 8 characters.")
+            flash("Password should include more than 8 characters.","register")
             is_valid=False
         if data['password'] != data['password_confirmation']:
-            flash("Passwords do not match, please review.")
+            flash("Passwords do not match, please review.","register")
             is_valid=False
         return is_valid
 
@@ -58,10 +59,10 @@ class Login:
         is_valid = True
         user = Login.get_by_email(data)
         if len(user) < 1:
-            flash("Email not valid.")
+            flash("Email not valid.","login")
             is_valid=False
         elif not bcrypt.check_password_hash(user[0].password, data['password']):
-            flash("Incorrect password, please try again.")
+            flash("Incorrect password, please try again.","login")
             is_valid=False
         else:
             session['userid'] = user[0].id
